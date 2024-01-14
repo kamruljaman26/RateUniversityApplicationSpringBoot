@@ -12,13 +12,14 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder =
-            new BCryptPasswordEncoder(); // password encryption from spring security
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final StudentRepository studentRepository;
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+        bCryptPasswordEncoder =
+                new BCryptPasswordEncoder(); // password encryption from spring security
     }
 
     public List<Student> findAllStudents() {
@@ -48,19 +49,10 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-//    public boolean authenticateStudent(String email, String password) {
-//        Optional<Student> student = Optional.ofNullable(studentRepository.findByEmail(email));
-//        return student.filter(value -> checkPassword(password, value.getPassword())).isPresent(); // Compare encrypted password
-//    }
-
     // Utility methods for password encryption
     private String encryptPassword(String password) {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    // Utility methods for encrypted password checking
-    private boolean checkPassword(String rawPassword, String encryptedPassword) {
-        return bCryptPasswordEncoder.matches(rawPassword, encryptedPassword);
-    }
 }
 
