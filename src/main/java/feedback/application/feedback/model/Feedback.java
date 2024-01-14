@@ -1,6 +1,8 @@
 package feedback.application.feedback.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -26,14 +28,14 @@ public class Feedback {
     @Column(name = "rating")
     private int rating;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDate createdAt;
 
     public Feedback() {
     }
 
-    public Feedback(Long id, Course course, Student student, String content, int rating, Date createdAt) {
+    public Feedback(Long id, Course course, Student student, String content, int rating, LocalDate createdAt) {
         this.id = id;
         this.course = course;
         this.student = student;
@@ -82,11 +84,11 @@ public class Feedback {
         this.rating = rating;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 

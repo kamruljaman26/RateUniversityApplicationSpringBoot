@@ -10,12 +10,8 @@ import java.util.Optional;
 @Service
 public class FeedbackService {
 
-    private final FeedbackRepository feedbackRepository;
-
     @Autowired
-    public FeedbackService(FeedbackRepository feedbackRepository) {
-        this.feedbackRepository = feedbackRepository;
-    }
+    private FeedbackRepository feedbackRepository;
 
     public List<Feedback> findAllFeedbacks() {
         return feedbackRepository.findAll();
