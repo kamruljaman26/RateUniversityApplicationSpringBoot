@@ -31,9 +31,11 @@ public class InitialDataConfig {
         return args -> {
             // Create and save some Student entities
             studentService.registerStudent(new Student(null,
-                    "John", "Doe", "john.doe@gmail.com", "password123"));
+                    "John", "Doe", "john.doe@example.com", "1234"));
             studentService.registerStudent(new Student(null,
-                    "Jane", "Smith", "jane.smith@gmail.com", "password123"));
+                    "Jane", "Smith", "jane.smith@example.com", "1234"));
+            studentService.registerStudent(new Student(null,
+                    "Jane", "Smith", "a@a.com", "a"));
 
             // Create and save 10 random Course entities
             for (int i = 1; i <= 10; i++) {
