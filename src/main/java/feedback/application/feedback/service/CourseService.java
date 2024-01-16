@@ -6,6 +6,7 @@ import feedback.application.feedback.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +40,15 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
+    public List<Course> searchCourses(String searchQuery) {
+        // Use your repository to search for courses by title or other criteria.
+        List<Course> matchingCourses = new ArrayList<>();
+        for (Course course:courseRepository.findAll()){
+            if(course.getTitle().toLowerCase().contains(searchQuery.toLowerCase())){
+                matchingCourses.add(course);
+            }
+        }
+        return matchingCourses;
+    }
 }
 

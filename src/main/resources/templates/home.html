@@ -45,9 +45,19 @@
                     <p th:text="'Name: ' + ${student.firstName} + ' ' + ${student.lastName}"></p>
                     <p th:text="'Email: ' + ${student.email}"></p>
                 </div>
+            </div>
 
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h5>Dashboard Functions</h5>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-dark" th:href="@{/courses}">View Courses</a>
+                    <a class="btn btn-dark" th:href="@{/calendar}">View Calendar</a>
+                </div>
             </div>
         </div>
+
         <div class="col-md-8">
             <!-- Top Rated Courses -->
             <div class="card">
@@ -59,7 +69,7 @@
                         <!-- Iterate through the top-rated courses and display them -->
                         <!-- Iterate through the top-rated courses and display them -->
                         <li th:each="course : ${courses}">
-                            <a th:href="@{'/course/' + ${course.id}}">
+                            <a th:href="@{'/courses/' + ${course.id}}">
                                 <span th:text="${course.title}"></span> (
                                 <span th:each="starIndex : ${#numbers.sequence(1, course.averageRating)}">★</span>
                                 <span th:text="${course.averageRating}"></span> stars)
@@ -93,7 +103,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><a th:href="@{/course/1}">Course 1</a></td>
+                            <td><a th:href="@{/courses/1}">Course 1</a></td>
                             <td>4.5</td>
                             <td>Great course! Highly recommended.</td>
                             <td>2024-01-15</td>
