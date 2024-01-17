@@ -35,9 +35,6 @@ public class LoginController {
         model.addAttribute("student", student);
         return "login";
     }
-
-
-
 }
 
 

@@ -66,7 +66,7 @@ public class InitialDataConfig {
             "Ethical decision-making in the business world."
     };
 
-    @Bean
+/*    @Bean
     CommandLineRunner initDatabase() {
         return args -> {
             // Create and save some Student entities
@@ -122,7 +122,7 @@ public class InitialDataConfig {
                 courseService.saveCourse(course);
             }
         };
-    }
+    }*/
 
 
 }
