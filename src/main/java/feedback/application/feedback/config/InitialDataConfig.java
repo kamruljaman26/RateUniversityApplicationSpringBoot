@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -85,21 +87,33 @@ public class InitialDataConfig {
                 course.setDescription(courseDescriptions[i]);
                 course.setInstructor("Professor " + (i + 1));
                 course.setCourseCode("COURSE-" + (i + 1));
-                course.setStartDate(LocalDate.now().plusDays(i * 10));
-                course.setEndDate(LocalDate.now().plusDays(i * 10 + 30));
+
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 1);
+                course.setStartDate(startCalendar.getTime());
+
+                Calendar endCalendar = Calendar.getInstance();
+                endCalendar.add(Calendar.DAY_OF_MONTH, (i * i) + 10);
+                course.setEndDate(endCalendar.getTime());
+
                 course.setLocation("Campus " + (i + 1));
                 courseService.saveCourse(course);
 
                 // Initialize realistic feedback for enrolled students
                 List<Student> enrolledStudents = studentService.findAllStudents();
 
+                int count = 5;
                 for (Student student : enrolledStudents) {
                     course.getEnrolledStudents().add(student);
 
                     Feedback feedback = new Feedback();
                     feedback.setStudent(student);
                     feedback.setContent("I really enjoyed " + course.getTitle() + ". The content was engaging, and the instructor was knowledgeable.");
-                    feedback.setCreatedAt(LocalDate.now().plusDays(i * 10 + 5));
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DAY_OF_MONTH, (i * i) + (count--));
+                    feedback.setCreatedAt(calendar.getTime());
+
                     feedback.setCourse(course);
                     feedback.setRating(new Random().nextInt(3) + 3); // Random rating between 3 and 5
                     feedbackService.saveFeedback(feedback);

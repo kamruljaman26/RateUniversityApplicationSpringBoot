@@ -8,37 +8,35 @@
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">Rate University Application</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <br/><br/>
 
 <!-- Main Container -->
 <div class="container">
     <h1 th:text="${course.title}"></h1>
 
+
     <div class="row">
         <div class="col-md-4">
+            <!--      Course Functions      -->
+            <div class="card mb-2" th:if="${isRegister}">
+                <div class="card-header">
+                    <h5>Course Functions</h5>
+                </div>
+                <div class="card-body">
+                    <h6>We are register to this course leave feedback.</h6>
+                    <a class="btn btn-dark" th:href="@{/courses/leave-feedback/{courseId}(courseId=*{course.id})}">Leave Feedback</a>
+                </div>
+            </div>
+
             <!-- Course Details Card -->
             <div class="card">
                 <div class="card-header">
                     <h5>Course Details</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong th:text="'Description: '" th:utext="'Description: ' + ${course.description}"></strong></p>
+                    <p><strong th:text="'Description: '" th:utext="'Description: ' + ${course.description}"></strong>
+                    </p>
 
                     <p><strong th:text="'Lecturer: '" th:utext="'Lecturer: ' + ${course.instructor}"></strong></p>
                     <p><strong th:text="'Times: '"
@@ -49,6 +47,7 @@
                     <p><strong th:text="'Rating: '" th:utext="'Rating: ' + ${course.averageRating}"></strong></p>
                 </div>
             </div>
+
         </div>
         <div class="col-md-8">
             <!-- Registered Students Card -->
@@ -76,32 +75,34 @@
             </div>
         </div>
         <br/>
+    </div>
 
-        <!-- Feedbacks Card -->
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Feedbacks</h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Rating</th>
-                                <th>Description</th>
-                                <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="feedback : ${course.feedbacks}">
-                                <td th:text="${feedback.rating}"></td>
-                                <td th:text="${feedback.content}"></td>
-                                <td th:text="${#temporals.format(feedback.createdAt, 'yyyy-MM-dd')}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- Feedbacks Card -->
+    <div class="row mb-4" style="margin-top: 20px;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Feedbacks</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Rating</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="feedback : ${course.getFeedbacks()}">
+                            <td th:text="${feedback.student.firstName+' '+feedback.student.lastName}"></td>
+                            <td th:text="${feedback.rating}"></td>
+                            <td th:text="${feedback.content}"></td>
+                            <td th:text="${feedback.createdAt}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

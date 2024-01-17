@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "course")
@@ -37,11 +35,11 @@ public class Course {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private Date startDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private Date endDate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -129,19 +127,19 @@ public class Course {
         this.credits = credits;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -154,7 +152,8 @@ public class Course {
     }
 
     public Set<Feedback> getFeedbacks() {
-        return feedbacks;
+        Set<Feedback> feedbacksSorted = new TreeSet<Feedback>(feedbacks);
+        return feedbacksSorted;
     }
 
     public void setFeedbacks(Set<Feedback> feedbacks) {

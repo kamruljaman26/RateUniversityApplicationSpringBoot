@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
                 // permit without login
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers( "/register").permitAll()
+                        .requestMatchers( "/register","/courses/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
