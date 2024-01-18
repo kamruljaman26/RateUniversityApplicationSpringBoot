@@ -15,40 +15,59 @@
 <br/><br/>
 
 <!-- Main Container -->
-<div class="container">
-
-    <h2>All Register Courses Cadendar View</h2>
-    <p></p>
-    <div class="card p-3 mb-4" >
-        <div class="p-2" id="calendar" th:attr="data-courses=${courses}"></div>
+<div class="container mt-4">
+    <div class="card text-white">
+        <div class="card-header" style="background: linear-gradient(90deg, rgba(30,30,30,1) 0%, rgba(120,120,120,1) 100%);">
+            <h5>All Registered Courses Calendar View</h5>
+        </div>
+        <div class="card-body" style="background: linear-gradient(90deg, rgba(120,120,120,1) 0%, rgba(30,30,30,1) 100%);">
+            <p class="card-text">"Explore our interactive calendar to seamlessly navigate through our extensive course offerings. Designed for convenience,
+                it presents a comprehensive view of all registered courses, their schedules, and timelines. Whether you're planning ahead or looking for
+                specific course details, our intuitive calendar ensures you stay informed and organized.
+                Experience effortless planning and make the most of your educational journey with us!"</p>
+        </div>
     </div>
+    <br/><br/>
+
+    <div id="calendar-container mt-2" class="card p-3">
+        <div id="calendar" th:attr="data-courses=${courses}"></div>
+    </div>
+    <br/><br/>
+
 </div>
 
+<!-- Navigation Bar -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var coursesData = JSON.parse(calendarEl.getAttribute('data-courses'));
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var coursesData = JSON.parse(calendarEl.getAttribute('data-courses'));
 
-            var events = coursesData.map(function (course) {
-                return {
-                    title: course.title,
-                    start: course.startDate, // Add time to make it a valid datetime
-                    end: course.endDate,
-                };
-            });
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: events,
-            });
-
-            calendar.render();
+        var events = coursesData.map(function (course) {
+            return {
+                title: course.title,
+                start: course.startDate,
+                end: course.endDate,
+            };
         });
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: events,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }
+        });
+
+        calendar.render();
+    });
 </script>
 
 <!-- Bootstrap JS bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
 
 </body>
 </html>
