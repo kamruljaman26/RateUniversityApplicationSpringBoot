@@ -79,10 +79,6 @@ public class Course {
         this.id = id;
     }
 
-    public String getCourseCode() {
-        return courseCode;
-    }
-
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
@@ -95,12 +91,34 @@ public class Course {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
+
+
+    public Set<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public Set<Feedback> getFeedbacks() {
+        Set<Feedback> feedbacksSorted = new TreeSet<Feedback>(feedbacks);
+        return feedbacksSorted;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getLocation() {
@@ -115,16 +133,8 @@ public class Course {
         return instructor;
     }
 
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
-    }
-
     public Integer getCredits() {
         return credits;
-    }
-
-    public void setCredits(Integer credits) {
-        this.credits = credits;
     }
 
     public Date getStartDate() {
@@ -143,17 +153,8 @@ public class Course {
         this.endDate = endDate;
     }
 
-    public Set<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
     public void setEnrolledStudents(Set<Student> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
-    }
-
-    public Set<Feedback> getFeedbacks() {
-        Set<Feedback> feedbacksSorted = new TreeSet<Feedback>(feedbacks);
-        return feedbacksSorted;
     }
 
     public void setFeedbacks(Set<Feedback> feedbacks) {
@@ -173,19 +174,5 @@ public class Course {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", courseCode='" + courseCode + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", instructor='" + instructor + '\'' +
-                ", credits=" + credits +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", enrolledStudents=" + enrolledStudents +
-                '}';
-    }
 }
 

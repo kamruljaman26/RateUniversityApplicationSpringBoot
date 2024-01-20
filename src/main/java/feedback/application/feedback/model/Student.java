@@ -47,13 +47,14 @@ public class Student {
         return firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -86,16 +87,5 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

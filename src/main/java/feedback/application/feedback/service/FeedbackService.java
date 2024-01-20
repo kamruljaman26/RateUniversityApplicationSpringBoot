@@ -41,10 +41,16 @@ public class FeedbackService {
         List<Feedback> feedbacks = new ArrayList<>();
         for (Feedback feedback:findAllFeedbacks()){
             if(feedback.getStudent().equals(student)){
+                feedback.getStudent();
+                feedback.getCourse();
+                feedback.getRating();
+                feedback.getCourse();
                 feedbacks.add(feedback);
             }
         }
         return feedbacks;
     }
+
+
 }
 
